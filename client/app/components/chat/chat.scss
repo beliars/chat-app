@@ -3,7 +3,6 @@
 .arrow-left {
   &::before {
     content: '\25c4';
-    padding-right: 0.5em;
     color: #e7edf2;
     position: relative;
     right: 8px;
@@ -14,8 +13,13 @@
 
   float: left;
   width: calc(100% - 280px);
+  // max-height: 100vh;
+  // height: 500px;
+  // overflow-y: auto;
 
   .chat-section {
+    height: 500px;
+    overflow-y: auto;
 
     .chat-header {
       line-height: 25px;
