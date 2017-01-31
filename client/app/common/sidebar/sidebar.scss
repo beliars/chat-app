@@ -1,0 +1,50 @@
+@import '../common';
+
+.sidebar {
+  height: 100vh;
+  width: 280px;
+  background-color: #302F3F;
+  color: #fff;
+  text-align: center;
+  float: left;
+
+
+  .img-wrapper {
+    text-align: center;
+
+    img {
+      margin-top: 20px;
+    }
+  }
+
+  .services {
+    width: 90%;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    margin: 0 auto;
+
+    .left-side {
+      float: left;
+    }
+
+    .right-side {
+      float: left;
+      text-align: left;
+      margin-left: 10px;
+
+      p {
+       margin-top: 10px ;
+      }
+    }
+
+    .detail-btn {
+      background-color: #29abe2;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 3px 10px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+  }
+}

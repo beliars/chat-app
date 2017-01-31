@@ -1,0 +1,21 @@
+@import "common/common";
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.app {
+  height: 100%;
+  background-color: $bgColor;
+
+  *{
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+

@@ -1,0 +1,49 @@
+<div class="chat">
+   <h1>Get your personalized tarot reading</h1>
+   <h2>Your Personalized Reading - Professional, Discreet and Confidential</h2>
+   <div class="chat-section">
+      <div class="chat-header">
+         <p class="online-status">Lily is online</p>
+      </div>
+      <div class="chat-display">
+         <ul>
+            <li class="clearfix" ng-repeat="msg in $ctrl.messages" ng-class="{'user': msg.user}">
+               <div class="img-wrapper" ng-if="!msg.user">
+                  <img src="./app/img/mini-logo.jpg" alt="">
+               </div>
+               <div class="img-wrapper" ng-if="msg.user">
+                  <img src="./app/img/user-logo.png" ng-if="msg.user" alt="">
+               </div>
+               <span><p class="arrow-left msg-text">{{ msg.text }}</p></span>
+            </li>
+         </ul>
+      </div>
+      <div class="chat-forms">
+         <form name="form" ng-show="!form.$submitted" ng-submit="$ctrl.onSubmitGender(form)">
+            <div class="gender-input">
+               <input id="feemale" type="radio" name="radiogroup1" ng-model="$ctrl.gender.text" value="Yes" required>
+               <label for="feemale">Yes</label>
+               <input id="male" type="radio" name="radiogroup1" ng-model="$ctrl.gender.text" value="No">
+               <label for="male">No</label>
+               <button type="submit">Send</button>
+            </div>
+         </form>
+         <form name="testForm" ng-show="!testForm.$submitted && form.$submitted" ng-submit="$ctrl.onSubmitLove(testForm)">
+            <div class="love-input">
+               <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.love.text" value="Yes" required>
+               <label for="yes">Yes</label>
+               <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.love.text" value="No">
+               <label for="no">No</label>
+               <button type="submit">Send</button>
+            </div>
+         </form>
+         <form name="problemForm" ng-show="!problemForm.$submitted && form.$submitted && testForm.$submitted" ng-submit="$ctrl.onSubmitProblem(problemForm)">
+            <div class="love-input">
+               <input type="text" ng-model="$ctrl.problem.text" required>
+               <button type="submit">Send</button>
+            </div>
+         </form>
+      </div>
+      <!--<button class="button" ng-click="$ctrl.answer()">Answer</button>-->
+   </div>
+</div>

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "text": "Welcome! My name is Lilly and I’m here to help you.",
+    "answered": "false"
+  },
+  {
+    "id": "2",
+    "text": "I belong to an ancient family of psychics and I want to help you find a solution to the obstacles in your life.",
+    "answered": "false"
+  },
+  {
+    "id": "3",
+    "text": "I feel that I’m talking to a woman. Am I right?",
+    "answered": "false"
+  },
+  {
+    "id": "4",
+    "text": "Can you please tell me your name?",
+    "answered": "false"
+  }
+]
+
