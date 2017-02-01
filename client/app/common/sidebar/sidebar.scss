@@ -48,3 +48,22 @@
     }
   }
 }
+
+.insert-enter {
+  transform:scale(1);
+  transition-property: all;
+  transition-timing-function: ease-out-cubic;
+  transition-duration: 400ms;
+}
+.insert-enter.ng-enter {
+  transform:scale(0);
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

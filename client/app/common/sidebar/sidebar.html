@@ -15,4 +15,10 @@
             <button type="button" class="detail-btn">Details</button>
         </div>
     </div>
+    <button ng-click="$ctrl.addItems()">Add</button>
+    <button ng-click="$ctrl.deleteItems()">Delete</button>
+    <p ng-repeat="item in $ctrl.items"
+       class="fade" ng-style="{'animation': $index * 2000+'ms appear'}">
+        {{$index * 500}}{{ item }}
+    </p>
 </div>

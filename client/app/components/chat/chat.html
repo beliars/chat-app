@@ -3,22 +3,23 @@
    <h2>Your Personalized Reading - Professional, Discreet and Confidential</h2>
    <div class="chat-section">
       <div class="chat-header">
-         <p class="online-status">Lily is online</p>
+         <p class="online-status">Lily is online </p>
       </div>
-      <div class="chat-display">
-         <ul>
-            <li class="clearfix" ng-repeat="msg in $ctrl.messages" ng-class="{'user': msg.user}">
+      <div class="chat-display" scroll-glue>
+         <ul class="msg-list">
+            <li class="clearfix fade" ng-repeat="msg in $ctrl.messages" ng-class="{'user': msg.user}">
                <div class="img-wrapper" ng-if="!msg.user">
                   <img src="./app/img/mini-logo.jpg" alt="">
                </div>
                <div class="img-wrapper" ng-if="msg.user">
                   <img src="./app/img/user-logo.png" ng-if="msg.user" alt="">
                </div>
-               <span><p class="arrow-left msg-text">{{ msg.text }}</p></span>
+               <p class="msg-text" ng-class="msg.user ? 'arrow-right' : 'arrow-left'">{{ msg.text }}</p>
             </li>
          </ul>
       </div>
       <div class="chat-forms">
+         <p class="is-typing fade-fast" ng-if="$ctrl.isTyping">Lily is typing...</p>
          <form name="form" ng-show="!form.$submitted" ng-submit="$ctrl.onSubmitGender(form)">
             <div class="gender-input">
                <input id="feemale" type="radio" name="radiogroup1" ng-model="$ctrl.gender.text" value="Yes" required>
@@ -37,7 +38,7 @@
                <button type="submit">Send</button>
             </div>
          </form>
-         <form name="problemForm" ng-show="!problemForm.$submitted && form.$submitted && testForm.$submitted" ng-submit="$ctrl.onSubmitProblem(problemForm)">
+         <form name="problemForm" ng-show="!problemForm.$submitted && form.$submitted && testForm.$submitted" ng-submit="$ctrl.onSubmitProblem(problemForm, test)">
             <div class="love-input">
                <input type="text" ng-model="$ctrl.problem.text" required>
                <button type="submit">Send</button>

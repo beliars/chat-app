@@ -1,10 +1,12 @@
 class ChatController {
-    constructor(Restangular, BotService, $timeout) {
-        this.name = 'home';
+    constructor(Restangular, BotService, $timeout, $interval, $scope) {
         this.botService = BotService;
         this.restangular = Restangular;
         this.$timeout = $timeout;
+        this.$interval = $interval;
         this.messages = [];
+        this.$scope = $scope;
+        this.isTyping = false;
         this.index = 0;
         this.gender = {
             text: '',
@@ -21,24 +23,32 @@ class ChatController {
     }
 
     $onInit() {
-        for (let i = 0; i < 3; i++) {
-            this.messages.push(this.botService.questions[i]);
-            this.index = i;
-        }
+        // for (let i = 0; i < 3; i++) {
+        //     this.messages.push(this.botService.questions[i]);
+        //     this.index = i;
+        // }
+        let interval = this.$interval(() => {
+            this.isTyping = true;
+            this.messages.push(this.botService.questions[this.index]);
+            this.index++;
+            if(this.messages.length === 3) {
+                this.$interval.cancel(interval);
+                this.isTyping = false;
+            }
+        }, 2000);
     }
 
-    answer() {
-        this.index += 1;
-        if (this.index < this.botService.questions.length) {
-            this.messages.push(this.botService.questions[this.index]);
-        }
-    }
+    // answer() {
+    //     this.index += 1;
+    //     if (this.index < this.botService.questions.length) {
+    //         this.messages.push(this.botService.questions[this.index]);
+    //     }
+    // }
 
     onSubmitGender(form) {
         if (form.$valid) {
             this.messages.push(this.gender);
             this.addNewQuestion();
-            console.log(this.messages);
         }
     }
 
@@ -57,19 +67,20 @@ class ChatController {
     }
 
     addNewQuestion() {
-        var elem = document.getElementsByClassName('chat-section')[0];
-        this.$timeout(() => {
-            this.index += 1;
-            if (this.index < this.botService.questions.length) {
-                this.messages.push(this.botService.questions[this.index]);
-                elem.scrollTop = elem.scrollHeight;     
-            }                                                                
-        }, 2000); // here we can use promise and .then after resolve
-
-        this.$timeout(() => {
-            var elem = document.getElementsByClassName('chat-section')[0];
-            elem.scrollTop = elem.scrollHeight;     
-        }, 2010);
+        this.isTyping = true;
+        let promise = new Promise((resolve, reject) => {
+            this.$timeout(() => {
+                this.index += 1;
+                if (this.index < this.botService.questions.length) {
+                    this.messages.push(this.botService.questions[this.index]);
+                }
+                return resolve();
+            }, 2000);
+        });
+        promise.then(() => {
+            this.isTyping = false;
+            this.$scope.$apply();
+        });
     }
 }
 
