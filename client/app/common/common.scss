@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 
 $primaryColor:   #0277bd;
 $accentColor:    #1de9b6;
@@ -14,5 +14,11 @@ body {
    // so setting top-level font-size to 62.5%
    // scales 1rem to equal 10px.
    font: 100% 'Roboto', sans-serif;
+}
+
+.clearfix:after {
+   content: "";
+   display: table;
+   clear: both;
 }
 

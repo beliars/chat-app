@@ -3,7 +3,7 @@ import uiRouter from 'angular-ui-router';
 import chatComponent from './chat.component';
 import BotService from '../../services/bot.service';
 
-let chatModule = angular.module('home', [
+let chatModule = angular.module('chat', [
     uiRouter
 ])
 

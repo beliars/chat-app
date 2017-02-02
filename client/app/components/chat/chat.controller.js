@@ -7,62 +7,73 @@ class ChatController {
         this.messages = [];
         this.$scope = $scope;
         this.isTyping = false;
+        this.showForms = false;
+        this.showCards = false;
         this.index = 0;
-        this.gender = {
+        this.firstForm = {
             text: '',
             user: true
         };
-        this.love = {
+        this.secondForm = {
             text: '',
             user: true
         };
-        this.problem = {
+        this.thirdForm = {
+            text: '',
+            user: true
+        };
+        this.fourthForm = {
             text: '',
             user: true
         };
     }
 
     $onInit() {
-        // for (let i = 0; i < 3; i++) {
-        //     this.messages.push(this.botService.questions[i]);
-        //     this.index = i;
-        // }
+        this.isTyping = true;
         let interval = this.$interval(() => {
-            this.isTyping = true;
             this.messages.push(this.botService.questions[this.index]);
             this.index++;
             if(this.messages.length === 3) {
                 this.$interval.cancel(interval);
-                this.isTyping = false;
+            this.isTyping = false;
+            this.showForms = true;
             }
-        }, 2000);
+        }, 1200);
+
+        // this.$timeout(() => {
+        //     this.addNewQuestion();
+        // }, 2000);
+
+        // for (let i = 0; i < 3; i++) {
+        //     this.messages.push(this.botService.questions[i]);
+        //     this.index = i;
+        // }
     }
 
-    // answer() {
-    //     this.index += 1;
-    //     if (this.index < this.botService.questions.length) {
-    //         this.messages.push(this.botService.questions[this.index]);
-    //     }
-    // }
-
-    onSubmitGender(form) {
-        if (form.$valid) {
-            this.messages.push(this.gender);
-            this.addNewQuestion();
-        }
-    }
-
-    onSubmitLove(form) {
-        if (form.$valid) {
-            this.messages.push(this.love);
-            this.addNewQuestion();
-        }
-    }
-
-    onSubmitProblem(form) {
-        if (form.$valid) {
-            this.messages.push(this.problem);
-            this.addNewQuestion();
+    onSubmit(form) {
+        if(form.$valid) {
+            this.showForms = false;
+            switch(form.$name) {
+                case 'firstForm':
+                    this.messages.push(this.firstForm);
+                    this.timeoutAddQuestion(2000);
+                    break;
+                case 'secondForm':
+                    this.messages.push(this.secondForm);
+                    this.timeoutAddQuestion(1000);
+                    break;
+                case 'thirdForm':
+                    this.messages.push(this.thirdForm);
+                    this.timeoutAddQuestion(500);
+                    break;
+                case 'fourthForm':
+                    this.messages.push(this.fourthForm);
+                    this.timeoutAddQuestion(3000);
+                    this.onShowCards(9000);
+                    break;
+                default:
+                    alert('Unknown error');
+            }
         }
     }
 
@@ -79,8 +90,27 @@ class ChatController {
         });
         promise.then(() => {
             this.isTyping = false;
+            this.showForms = true;
             this.$scope.$apply();
         });
+    }
+
+    timeoutAddQuestion(ms) {
+        this.$timeout(() => {
+            this.addNewQuestion();
+        }, ms);
+    }
+
+    onShowCards(ms) {
+        this.$timeout(() => {
+           this.showCards = true;
+        }, ms);
+    }
+
+    onChooseCard(card) {
+        console.log('Card chosen');
+        console.log(card);
+        // this.showCards = false;
     }
 }
 

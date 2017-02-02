@@ -1,10 +1,9 @@
 <div class="chat">
-   <h1>Get your personalized tarot reading</h1>
-   <h2>Your Personalized Reading - Professional, Discreet and Confidential</h2>
    <div class="chat-section">
       <div class="chat-header">
-         <p class="online-status">Lily is online </p>
+         <p class="online-status">Lily is online</p>
       </div>
+      <cards class="fade" ng-if="$ctrl.showCards" on-choose="$ctrl.onChooseCard(card)"></cards>
       <div class="chat-display" scroll-glue>
          <ul class="msg-list">
             <li class="clearfix fade" ng-repeat="msg in $ctrl.messages" ng-class="{'user': msg.user}">
@@ -18,33 +17,43 @@
             </li>
          </ul>
       </div>
-      <div class="chat-forms">
-         <p class="is-typing fade-fast" ng-if="$ctrl.isTyping">Lily is typing...</p>
-         <form name="form" ng-show="!form.$submitted" ng-submit="$ctrl.onSubmitGender(form)">
-            <div class="gender-input">
-               <input id="feemale" type="radio" name="radiogroup1" ng-model="$ctrl.gender.text" value="Yes" required>
+      <p class="is-typing fade" ng-if="$ctrl.isTyping">Lily is typing...</p>
+      <div class="chat-forms" ng-show="$ctrl.showForms">
+         <form name="firstForm" ng-show="!firstForm.$submitted"
+               ng-submit="$ctrl.onSubmit(firstForm)">
+            <div class="first-form-input">
+               <input id="feemale" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="Yes" required>
                <label for="feemale">Yes</label>
-               <input id="male" type="radio" name="radiogroup1" ng-model="$ctrl.gender.text" value="No">
+               <input id="male" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="No">
                <label for="male">No</label>
                <button type="submit">Send</button>
             </div>
          </form>
-         <form name="testForm" ng-show="!testForm.$submitted && form.$submitted" ng-submit="$ctrl.onSubmitLove(testForm)">
-            <div class="love-input">
-               <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.love.text" value="Yes" required>
+         <form name="secondForm" ng-show="!secondForm.$submitted && firstForm.$submitted"
+               ng-submit="$ctrl.onSubmit(secondForm)">
+            <div class="second-form-input">
+               <input type="text" ng-model="$ctrl.secondForm.text" required>
+               <button type="submit">Send</button>
+            </div>
+         </form>
+         <form name="thirdForm" ng-show="!thirdForm.$submitted && secondForm.$submitted"
+               ng-submit="$ctrl.onSubmit(thirdForm)">
+            <div class="third-form-input">
+               <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="Yes" required>
                <label for="yes">Yes</label>
-               <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.love.text" value="No">
+               <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="No">
                <label for="no">No</label>
                <button type="submit">Send</button>
             </div>
          </form>
-         <form name="problemForm" ng-show="!problemForm.$submitted && form.$submitted && testForm.$submitted" ng-submit="$ctrl.onSubmitProblem(problemForm, test)">
-            <div class="love-input">
-               <input type="text" ng-model="$ctrl.problem.text" required>
+         <form name="fourthForm" ng-show="!fourthForm.$submitted && thirdForm.$submitted"
+               ng-submit="$ctrl.onSubmit(fourthForm)">
+            <div class="fourth-form-input">
+               <input type="text" ng-model="$ctrl.fourthForm.text" required>
                <button type="submit">Send</button>
             </div>
          </form>
       </div>
-      <!--<button class="button" ng-click="$ctrl.answer()">Answer</button>-->
    </div>
+   <!--<button type="button" ng-click="$ctrl.onShowCards()">Cards test</button>-->
 </div>

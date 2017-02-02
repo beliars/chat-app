@@ -31,12 +31,17 @@ export default class BotService {
             },
             {
                 id: 7,
-                text: "Bla sfdwerf wfd sdf fg erger gggggg dadfsfd.",
+                text: "Cras ultricies ligula sed magna dictum porta?",
                 show: false
             },
             {
                 id: 8,
-                text: "Cqweqwe qwe sdsdasdasdasd gfb ghnghhhhj  jjjjjj jjkjkjk.",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+                show: false
+            },
+            {
+                id: 9,
+                text: "Nulla porttitor accumsan tincidunt. Nulla porttitor accumsan tincidunt.",
                 show: false
             }
         ];

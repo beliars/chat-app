@@ -1,16 +1,23 @@
 @import '../../common/common';
 
 .chat {
-
   float: left;
   width: calc(100% - 280px);
-  // max-height: 100vh;
-  // height: 500px;
-  // overflow-y: auto;
 
   .chat-section {
-    //height: 500px;
-    //overflow-y: auto;
+    position: relative;
+
+    cards {
+      position: absolute;
+      z-index: 100;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: #9594AF;
+      border-top: 5px solid goldenrod;
+      border-bottom: 5px solid goldenrod;
+    }
 
     .arrow-left {
       &::before {
@@ -35,6 +42,13 @@
       }
     }
 
+    .is-typing {
+      position: absolute;
+      font-weight: 500;
+      font-size: 12px;
+      right: 5px;
+    }
+
     .chat-display {
       background-color: #fafafa;
       position: relative;
@@ -49,36 +63,26 @@
     }
 
     .chat-forms {
-      position: relative;
       margin: 20px;
 
       form {
 
+        input {
+          border-radius: 4px;
+          height: 30px;
+          border: 1px solid #ccc;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
         button {
-          border: none;
           border-radius: 5px;
+          border: 1px solid #ccc;
+          background: #fff;
+          height: 34px;
         }
       }
-
-      .is-typing {
-        position: absolute;
-        font-size: 12px;
-        top: -30px;
-      }
     }
-  }
-
-  h1 {
-    font-size: 21px;
-    color: #b77fb6;
-    margin: 0;
-    padding-top: 10px;
-    padding-left: 15px;
-  }
-
-  h2 {
-    font-size: 16px;
-    padding-left: 15px;
   }
 
   ul {
@@ -130,6 +134,7 @@
 
       p {
         padding-left: 10px;
+        padding-right: 0;
       }
 
       .arrow-right {
@@ -138,26 +143,34 @@
           color: #e7edf2;
           position: relative;
           top: -4px;
-          left: 18px;
+          left: 9px;
         }
       }
     }
   }
 }
 
+/* Animations */
+
 .fade {
   animation: 1s appear;
 }
 
-.fade-fast.ng-enter {
-  animation: 1.5s appear;
+.fade.ng-enter {
+  animation: 1s appear;
 }
 
-.fade-fast.ng-leave {
+.fade.ng-leave {
   animation:  0.5s disappear;
 }
 
-
+//.fade-fast.ng-enter {
+//  animation: 1.5s appear;
+//}
+//
+//.fade-fast.ng-leave {
+//  animation:  0.5s disappear;
+//}
 
 @keyframes appear {
   from {
