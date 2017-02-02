@@ -1,0 +1,20 @@
+@import '../common';
+
+.topbar {
+  height: 120px;
+  width: calc(100% - 280px);
+  float: right;
+
+  h1 {
+    font-size: 21px;
+    color: #b77fb6;
+    margin: 0;
+    padding-top: 10px;
+    padding-left: 15px;
+  }
+
+  h2 {
+    font-size: 16px;
+    padding-left: 15px;
+  }
+}
