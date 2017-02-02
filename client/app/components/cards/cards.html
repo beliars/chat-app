@@ -1,0 +1,6 @@
+<div class="cards">
+   <h2>Pick a card</h2>
+   <ul class="cards-list">
+      <li class="card-item" ng-repeat="card in $ctrl.cards" ng-click="$ctrl.onChoose({ card })">{{ card }}</li>
+   </ul>
+</div>
