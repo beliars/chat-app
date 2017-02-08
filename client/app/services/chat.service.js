@@ -6,43 +6,35 @@ export default class BotService {
         this.questions = [
             {
                 id: 1,
-                text: "Welcome! My name is Lilly and I’m here to help you.",
-                show: false
+                text: "Welcome! My name is Lilly and I’m here to help you."
             },
             {
                 id: 2,
-                text: "I belong to an ancient family of psychics and I want to help you find a solution to the obstacles in your life.",
-                show: false
+                text: "I belong to an ancient family of psychics and I want to help you find a solution to the obstacles in your life."
             },
             {
                 id: 3,
-                text: "I feel that I’m talking to a woman. Am I right?",
-                show: false
+                text: "I feel that I’m talking to a woman. Am I right?"
             },
             {
                 id: 5,
-                text: "Nice to meet you. I can see you’re going through some trouble. Are you having love problems?",
-                show: false
+                text: "Can you please tell me your name?"
             },
             {
                 id: 6,
-                text: "If love is not a worry, what is your problem my dear?",
-                show: false
+                text: "Are you having love problems?"
             },
             {
                 id: 7,
-                text: "Cras ultricies ligula sed magna dictum porta?",
-                show: false
+                text: "What is your problem my dear?"
             },
             {
                 id: 8,
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                show: false
+                text: "Ok, let’s start your tarot reading. Please select one of the cards that will appear on your screen."
             },
             {
                 id: 9,
-                text: "Nulla porttitor accumsan tincidunt. Nulla porttitor accumsan tincidunt.",
-                show: false
+                text: "Nulla porttitor accumsan tincidunt. Nulla porttitor accumsan tincidunt."
             }
         ];
     }

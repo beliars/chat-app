@@ -3,7 +3,6 @@ class ChatController {
     this.chatService = ChatService;
     this.restangular = Restangular;
     this.$timeout = $timeout;
-    this.$interval = $interval;
     this.messages = [];
     this.$scope = $scope;
     this.isTyping = false;
@@ -29,21 +28,10 @@ class ChatController {
   }
 
   $onInit() {
-    this.timeoutAddQuestion(500)
-      .then(() => this.timeoutAddQuestion(1000))
-      .then(() => this.timeoutAddQuestion(1000))
+    this.timeoutMessage(500)
+      .then(() => this.timeoutMessage(2000))
+      .then(() => this.timeoutMessage(1000))
       .then(() => this.onShowForms());
-
-
-    // let interval = this.$interval(() => {
-    //   this.messages.push(this.chatService.questions[this.index]);
-    //   this.index++;
-    //   if (this.messages.length === 3) {
-    //     this.$interval.cancel(interval);
-    //     this.isTyping = false;
-    //     this.showForms = true;
-    //   }
-    // }, 1500);
   }
 
   onSubmit(form) {
@@ -52,54 +40,38 @@ class ChatController {
       switch (form.$name) {
         case 'firstForm':
           this.messages.push(this.firstForm);
-          this.timeoutAddQuestion(2000)
+          this.timeoutMessage(2000)
             .then(() => this.onShowForms());
           break;
         case 'secondForm':
           this.messages.push(this.secondForm);
-          this.timeoutAddQuestion(1500)
+          // this.timeoutHello(3000)
+          this.timeoutMessage(3000, 'hello')
+            .then(() => this.timeoutMessage(1500))
             .then(() => this.onShowForms());
           break;
         case 'thirdForm':
           this.messages.push(this.thirdForm);
-          this.timeoutAddQuestion(3000)
+          this.timeoutMessage(2000)
             .then(() => this.onShowForms());
           break;
         case 'fourthForm':
           this.messages.push(this.fourthForm);
-          this.timeoutAddQuestion(1500)
+          this.timeoutMessage(2500)
             .then(() => {
             this.onShowForms();
             this.onShowCards(3000);
           });
           break;
         default:
-          alert('Unknown error');
+          console.log('Unknown error');
       }
     }
   }
 
-  // addNewQuestion() {
-  //     this.isTyping = true;
-  //     let promise = new Promise((resolve, reject) => {
-  //         this.$timeout(() => {
-  //             this.index += 1;
-  //             if (this.index < this.chatService.questions.length) {
-  //                 this.messages.push(this.chatService.questions[this.index]);
-  //             }
-  //             return resolve();
-  //         }, 2000);
-  //     });
-  //     promise.then(() => {
-  //         this.isTyping = false;
-  //         this.showForms = true;
-  //         this.$scope.$apply();
-  //     });
-  // }
-
   addNewQuestion() {
     this.isTyping = true;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.$timeout(() => {
         this.index += 1;
         if (this.index < this.chatService.questions.length) {
@@ -108,20 +80,35 @@ class ChatController {
         resolve();
       }, 2000);
     });
-
   }
 
-  timeoutAddQuestion(ms) {
-    return new Promise((resolve, reject) => {
+  timeoutMessage(ms, msgType) {
+    return new Promise((resolve) => {
       this.$timeout(() => {
-        this.addNewQuestion()
-          .then(() => {
+        if(msgType && msgType == 'hello') {
+          var promise = this.helloMessage();
+        }
+        else {
+          var promise = this.addNewQuestion();
+        }
+        promise.then(() => {
           this.isTyping = false;
-          // this.showForms = true;
           this.$scope.$apply();
           resolve();
         });
       }, ms);
+    });
+  }
+
+  helloMessage() {
+    this.isTyping = true;
+    return new Promise((resolve) => {
+      this.$timeout(() => {
+        let username = this.secondForm.text;
+        this.messages.push({text: `Nice to meet You, ${username}!`});
+        this.isTyping = false;
+        resolve();
+      }, 2000);
     });
   }
 
@@ -132,12 +119,13 @@ class ChatController {
   }
 
   onChooseCard(card) {
-    console.log(card);
     this.showCards = false;
-    this.messages.push({
-      text: `I have chosen the card "${card}"`,
-      user: true
-    });
+    this.$timeout(() => {
+      this.messages.push({
+        text: `I have chosen the card "${card}"`,
+        user: true
+      });
+    }, 500);
   }
 
   onShowForms() {
