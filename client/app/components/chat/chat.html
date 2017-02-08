@@ -37,21 +37,21 @@
             <form name="secondForm" ng-show="!secondForm.$submitted && firstForm.$submitted"
                   ng-submit="$ctrl.onSubmit(secondForm)">
                <div class="second-form-input">
-                  <label for="yes">
-                     <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.secondForm.text" value="Yes" required>
-                     <span>Yes</span>
-                  </label>
-                  <label for="no">
-                     <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.secondForm.text" value="No">
-                     <span>No</span>
-                  </label>
+                  <input type="text" ng-model="$ctrl.secondForm.text" required>
                   <button type="submit">Send</button>
                </div>
             </form>
             <form name="thirdForm" ng-show="!thirdForm.$submitted && secondForm.$submitted"
                   ng-submit="$ctrl.onSubmit(thirdForm)">
                <div class="third-form-input">
-                  <input type="text" ng-model="$ctrl.thirdForm.text" required>
+                  <label for="yes">
+                     <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="Yes" required>
+                     <span>Yes</span>
+                  </label>
+                  <label for="no">
+                     <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="No">
+                     <span>No</span>
+                  </label>
                   <button type="submit">Send</button>
                </div>
             </form>
