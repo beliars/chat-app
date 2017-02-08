@@ -1,59 +1,68 @@
-<div class="chat">
-   <div class="chat-section">
-      <div class="chat-header">
-         <p class="online-status">Lily is online</p>
-      </div>
-      <cards class="fade" ng-if="$ctrl.showCards" on-choose="$ctrl.onChooseCard(card)"></cards>
-      <div class="chat-display" scroll-glue>
-         <ul class="msg-list">
-            <li class="clearfix fade" ng-repeat="msg in $ctrl.messages" ng-class="{'user': msg.user}">
-               <div class="img-wrapper" ng-if="!msg.user">
-                  <img src="./app/img/mini-logo.jpg" alt="">
+<div class="container">
+   <div class="chat">
+      <div class="chat-section">
+         <div class="chat-header">
+            <p class="online-status">Lily is online</p>
+         </div>
+         <cards class="fade" ng-if="$ctrl.showCards" on-choose="$ctrl.onChooseCard(card)"></cards>
+         <div class="chat-display" scroll-glue>
+            <ul class="msg-list">
+               <li class="clearfix fade" ng-repeat="msg in $ctrl.messages" ng-class="{'user': msg.user}">
+                  <div class="img-wrapper" ng-if="!msg.user">
+                     <img src="./app/img/mini-logo.jpg" alt="">
+                  </div>
+                  <div class="img-wrapper" ng-if="msg.user">
+                     <img src="./app/img/user-logo.png" ng-if="msg.user" alt="">
+                  </div>
+                  <p class="msg-text" ng-class="msg.user ? 'arrow-right' : 'arrow-left'">{{ msg.text }}</p>
+               </li>
+            </ul>
+         </div>
+         <p class="is-typing fade" ng-if="$ctrl.isTyping">Lily is typing...</p>
+         <div class="chat-forms" ng-show="$ctrl.showForms">
+            <form name="firstForm" ng-show="!firstForm.$submitted"
+                  ng-submit="$ctrl.onSubmit(firstForm)">
+               <div class="first-form-input">
+                  <label for="feemale">
+                     <input id="feemale" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="Yes" required>
+                     <span>Yes</span>
+                  </label>
+                  <label for="male">
+                     <input id="male" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="No">
+                     <span>No</span>
+                  </label>
+                  <button type="submit">Send</button>
                </div>
-               <div class="img-wrapper" ng-if="msg.user">
-                  <img src="./app/img/user-logo.png" ng-if="msg.user" alt="">
+            </form>
+            <form name="secondForm" ng-show="!secondForm.$submitted && firstForm.$submitted"
+                  ng-submit="$ctrl.onSubmit(secondForm)">
+               <div class="second-form-input">
+                  <label for="yes">
+                     <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.secondForm.text" value="Yes" required>
+                     <span>Yes</span>
+                  </label>
+                  <label for="no">
+                     <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.secondForm.text" value="No">
+                     <span>No</span>
+                  </label>
+                  <button type="submit">Send</button>
                </div>
-               <p class="msg-text" ng-class="msg.user ? 'arrow-right' : 'arrow-left'">{{ msg.text }}</p>
-            </li>
-         </ul>
-      </div>
-      <p class="is-typing fade" ng-if="$ctrl.isTyping">Lily is typing...</p>
-      <div class="chat-forms" ng-show="$ctrl.showForms">
-         <form name="firstForm" ng-show="!firstForm.$submitted"
-               ng-submit="$ctrl.onSubmit(firstForm)">
-            <div class="first-form-input">
-               <input id="feemale" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="Yes" required>
-               <label for="feemale">Yes</label>
-               <input id="male" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="No">
-               <label for="male">No</label>
-               <button type="submit">Send</button>
-            </div>
-         </form>
-         <form name="secondForm" ng-show="!secondForm.$submitted && firstForm.$submitted"
-               ng-submit="$ctrl.onSubmit(secondForm)">
-            <div class="second-form-input">
-               <input type="text" ng-model="$ctrl.secondForm.text" required>
-               <button type="submit">Send</button>
-            </div>
-         </form>
-         <form name="thirdForm" ng-show="!thirdForm.$submitted && secondForm.$submitted"
-               ng-submit="$ctrl.onSubmit(thirdForm)">
-            <div class="third-form-input">
-               <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="Yes" required>
-               <label for="yes">Yes</label>
-               <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="No">
-               <label for="no">No</label>
-               <button type="submit">Send</button>
-            </div>
-         </form>
-         <form name="fourthForm" ng-show="!fourthForm.$submitted && thirdForm.$submitted"
-               ng-submit="$ctrl.onSubmit(fourthForm)">
-            <div class="fourth-form-input">
-               <input type="text" ng-model="$ctrl.fourthForm.text" required>
-               <button type="submit">Send</button>
-            </div>
-         </form>
+            </form>
+            <form name="thirdForm" ng-show="!thirdForm.$submitted && secondForm.$submitted"
+                  ng-submit="$ctrl.onSubmit(thirdForm)">
+               <div class="third-form-input">
+                  <input type="text" ng-model="$ctrl.thirdForm.text" required>
+                  <button type="submit">Send</button>
+               </div>
+            </form>
+            <form name="fourthForm" ng-show="!fourthForm.$submitted && thirdForm.$submitted"
+                  ng-submit="$ctrl.onSubmit(fourthForm)">
+               <div class="fourth-form-input">
+                  <input type="text" ng-model="$ctrl.fourthForm.text" required>
+                  <button type="submit">Send</button>
+               </div>
+            </form>
+         </div>
       </div>
    </div>
-   <!--<button type="button" ng-click="$ctrl.onShowCards()">Cards test</button>-->
 </div>

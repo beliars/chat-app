@@ -1,7 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import chatComponent from './chat.component';
-import BotService from '../../services/bot.service';
+import ChatService from '../../services/chat.service';
 
 let chatModule = angular.module('chat', [
     uiRouter
@@ -20,7 +20,7 @@ let chatModule = angular.module('chat', [
     })
 
     .component('chat', chatComponent)
-    .service('BotService', BotService)
+    .service('ChatService', ChatService)
 
     .name;
 

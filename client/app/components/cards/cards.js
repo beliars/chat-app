@@ -1,7 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import cardsComponent from './cards.component';
-import BotService from '../../services/bot.service';
+import BotService from '../../services/chat.service';
 
 let cardsModule = angular.module('cards', [
     uiRouter
