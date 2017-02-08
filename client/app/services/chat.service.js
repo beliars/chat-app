@@ -1,4 +1,4 @@
-export default class BotService {
+export default class ChatService {
     constructor(Restangular) {
         'ngInject;'
         this.restangular = Restangular;

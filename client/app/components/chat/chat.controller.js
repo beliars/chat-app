@@ -40,12 +40,12 @@ class ChatController {
       switch (form.$name) {
         case 'firstForm':
           this.messages.push(this.firstForm);
-          this.timeoutMessage(2000)
+          this.timeoutMessage(2000, 'gender')
+            .then(() => this.timeoutMessage(2000))
             .then(() => this.onShowForms());
           break;
         case 'secondForm':
           this.messages.push(this.secondForm);
-          // this.timeoutHello(3000)
           this.timeoutMessage(3000, 'hello')
             .then(() => this.timeoutMessage(1500))
             .then(() => this.onShowForms());
@@ -85,7 +85,10 @@ class ChatController {
   timeoutMessage(ms, msgType) {
     return new Promise((resolve) => {
       this.$timeout(() => {
-        if(msgType && msgType == 'hello') {
+        if(msgType && msgType == 'gender') {
+          var promise = this.genderMessage();
+        }
+        else if(msgType && msgType == 'hello') {
           var promise = this.helloMessage();
         }
         else {
@@ -97,6 +100,23 @@ class ChatController {
           resolve();
         });
       }, ms);
+    });
+  }
+
+  genderMessage() {
+    this.isTyping = true;
+    return new Promise((resolve) => {
+      this.$timeout(() => {
+        let gender = this.firstForm.text;
+        if(gender == 'Yes') {
+          this.messages.push({text: `Great, I was right.`});
+        }
+        else {
+          this.messages.push({text: `Oh, I'm sorry.`});
+        }
+        this.isTyping = false;
+        resolve();
+      }, 2500);
     });
   }
 
