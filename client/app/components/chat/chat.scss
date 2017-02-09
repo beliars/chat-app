@@ -1,12 +1,8 @@
 @import '../../common/common';
 
 .container {
-  width: 1024px;
-  margin: 0 auto;
 
   .chat {
-    //float: left;
-    //width: calc(100% - 280px);
 
     .chat-section {
       position: relative;
@@ -54,9 +50,11 @@
       }
 
       .chat-display {
-        background-color: #fafafa;
+        background-color: #fff;
         position: relative;
         height: 500px;
+        border-radius: 3px;
+        border: 1px solid #e7edf2;
         overflow-y: auto;
 
         .msg-list {
@@ -80,19 +78,19 @@
             }
           }
 
-          input[type="text"] {
-            border-radius: 4px;
-            height: 30px;
-            border: 1px solid #ccc;
-            padding-left: 10px;
-            padding-right: 10px;
-          }
+          //input[type="text"], input[type="date"] {
+          //  border-radius: 4px;
+          //  height: 30px;
+          //  border: 1px solid #ccc;
+          //  padding-left: 10px;
+          //  padding-right: 10px;
+          //}
 
           button {
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background: #fff;
-            height: 34px;
+            //border-radius: 5px;
+            //border: 1px solid #ccc;
+            //background: #fff;
+            //height: 34px;
           }
         }
       }

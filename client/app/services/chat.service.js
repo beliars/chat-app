@@ -34,7 +34,7 @@ export default class ChatService {
             },
             {
                 id: 9,
-                text: "Nulla porttitor accumsan tincidunt. Nulla porttitor accumsan tincidunt."
+                text: "For a better reading I need to draw your birth chart. Please tell me your birth date so I can understand which planets are guiding your life."
             }
         ];
     }

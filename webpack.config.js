@@ -7,10 +7,14 @@ module.exports = {
   entry: {},
   module: {
     loaders: [
-       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
-       { test: /\.html$/, loader: 'raw' },
-       { test: /\.(scss|sass)$/, loader: 'style!css!sass' },
-       { test: /\.css$/, loader: 'style!css' }
+      {test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel'},
+      {test: /\.html$/, loader: 'raw'},
+      {test: /\.(scss|sass)$/, loader: 'style!css!sass'},
+      {test: /\.css$/, loader: 'style!css'},
+      {
+        test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+        loader: 'file-loader'
+      }
     ]
   },
   plugins: [
@@ -21,6 +25,11 @@ module.exports = {
       template: 'client/index.html',
       inject: 'body',
       hash: true
+    }),
+
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
     }),
 
     // Automatically move all modules defined outside of application directory to vendor bundle.

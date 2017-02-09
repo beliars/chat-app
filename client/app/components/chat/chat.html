@@ -1,67 +1,89 @@
-<div class="container">
-   <div class="chat">
-      <div class="chat-section">
-         <div class="chat-header">
-            <p class="online-status">Lily is online</p>
-         </div>
-         <cards class="fade" ng-if="$ctrl.showCards" on-choose="$ctrl.onChooseCard(card)"></cards>
-         <div class="chat-display" scroll-glue>
-            <ul class="msg-list">
-               <li class="clearfix fade" ng-repeat="msg in $ctrl.messages" ng-class="{'user': msg.user}">
-                  <div class="img-wrapper" ng-if="!msg.user">
-                     <img src="./app/img/mini-logo.jpg" alt="">
+<div class="container" layout="row" layout-align="center center">
+   <div flex-sm="90" flex-gt-sm="70" flex-gt-md="60">
+      <div class="chat">
+         <div class="chat-section">
+            <div class="chat-header">
+               <p class="online-status">Lily is online</p>
+            </div>
+            <cards class="fade" ng-if="$ctrl.showCards" on-choose="$ctrl.onChooseCard(card)"></cards>
+            <div class="chat-display" scroll-glue>
+               <ul class="msg-list">
+                  <li class="clearfix fade" ng-repeat="msg in $ctrl.messages" ng-class="{'user': msg.user}">
+                     <div class="img-wrapper" ng-if="!msg.user">
+                        <img src="./app/img/mini-logo.jpg" alt="">
+                     </div>
+                     <div class="img-wrapper" ng-if="msg.user">
+                        <img src="./app/img/user-logo.png" ng-if="msg.user" alt="">
+                     </div>
+                     <p class="msg-text" ng-class="msg.user ? 'arrow-right' : 'arrow-left'">{{ msg.text }}</p>
+                  </li>
+               </ul>
+            </div>
+            <p class="is-typing fade" ng-if="$ctrl.isTyping">Lily is typing...</p>
+            <div class="chat-forms" ng-show="$ctrl.showForms">
+               <form name="firstForm" ng-show="!firstForm.$submitted"
+                     ng-submit="$ctrl.onSubmit(firstForm)">
+                  <div class="first-form-input">
+                     <label for="feemale">
+                        <input id="feemale" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="Yes" required>
+                        <span>Yes</span>
+                     </label>
+                     <label for="male">
+                        <input id="male" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="No">
+                        <span>No</span>
+                     </label>
+
+                     <!--<md-radio-group>-->
+                        <!--<md-radio-button value="Yes" ng-model="$ctrl.firstForm.text">Yes</md-radio-button>-->
+                        <!--<md-radio-button value="No" ng-model="$ctrl.firstForm.text">No</md-radio-button>-->
+                     <!--</md-radio-group>-->
+                     <md-button type="submit">Send</md-button>
                   </div>
-                  <div class="img-wrapper" ng-if="msg.user">
-                     <img src="./app/img/user-logo.png" ng-if="msg.user" alt="">
+               </form>
+               <form name="secondForm" ng-show="!secondForm.$submitted && firstForm.$submitted"
+                     ng-submit="$ctrl.onSubmit(secondForm)">
+                  <div class="second-form-input">
+                     <md-input-container>
+                        <input type="text" ng-model="$ctrl.secondForm.text" placeholder="First name" required>
+                        <md-button type="submit">Send</md-button>
+                     </md-input-container>
                   </div>
-                  <p class="msg-text" ng-class="msg.user ? 'arrow-right' : 'arrow-left'">{{ msg.text }}</p>
-               </li>
-            </ul>
-         </div>
-         <p class="is-typing fade" ng-if="$ctrl.isTyping">Lily is typing...</p>
-         <div class="chat-forms" ng-show="$ctrl.showForms">
-            <form name="firstForm" ng-show="!firstForm.$submitted"
-                  ng-submit="$ctrl.onSubmit(firstForm)">
-               <div class="first-form-input">
-                  <label for="feemale">
-                     <input id="feemale" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="Yes" required>
-                     <span>Yes</span>
-                  </label>
-                  <label for="male">
-                     <input id="male" type="radio" name="radiogroup1" ng-model="$ctrl.firstForm.text" value="No">
-                     <span>No</span>
-                  </label>
-                  <button type="submit">Send</button>
-               </div>
-            </form>
-            <form name="secondForm" ng-show="!secondForm.$submitted && firstForm.$submitted"
-                  ng-submit="$ctrl.onSubmit(secondForm)">
-               <div class="second-form-input">
-                  <input type="text" ng-model="$ctrl.secondForm.text" required>
-                  <button type="submit">Send</button>
-               </div>
-            </form>
-            <form name="thirdForm" ng-show="!thirdForm.$submitted && secondForm.$submitted"
-                  ng-submit="$ctrl.onSubmit(thirdForm)">
-               <div class="third-form-input">
-                  <label for="yes">
-                     <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="Yes" required>
-                     <span>Yes</span>
-                  </label>
-                  <label for="no">
-                     <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="No">
-                     <span>No</span>
-                  </label>
-                  <button type="submit">Send</button>
-               </div>
-            </form>
-            <form name="fourthForm" ng-show="!fourthForm.$submitted && thirdForm.$submitted"
-                  ng-submit="$ctrl.onSubmit(fourthForm)">
-               <div class="fourth-form-input">
-                  <input type="text" ng-model="$ctrl.fourthForm.text" required>
-                  <button type="submit">Send</button>
-               </div>
-            </form>
+               </form>
+               <form name="thirdForm" ng-show="!thirdForm.$submitted && secondForm.$submitted"
+                     ng-submit="$ctrl.onSubmit(thirdForm)">
+                  <div class="third-form-input">
+                     <label for="yes">
+                        <input id="yes" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="Yes" required>
+                        <span>Yes</span>
+                     </label>
+                     <label for="no">
+                        <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="No">
+                        <span>No</span>
+                     </label>
+                     <md-button type="submit">Send</md-button>
+                  </div>
+               </form>
+               <form name="fourthForm" ng-show="!fourthForm.$submitted && thirdForm.$submitted"
+                 ng-submit="$ctrl.onSubmit(fourthForm)">
+                  <div class="fourth-form-input">
+                     <md-input-container>
+                        <input type="text" ng-model="$ctrl.fourthForm.text" placeholder="Enter text" required>
+                        <md-button type="submit">Send</md-button>
+                     </md-input-container>
+                  </div>
+               </form>
+               <form name="fifthForm" ng-show="!fifthForm.$submitted && fourthForm.$submitted"
+                 ng-submit="$ctrl.onSubmit(fifthForm)">
+                  <div class="fifth-form-input">
+                     <!--<input type="date" min="1900-12-31" value="1980-01-01" ng-model="$ctrl.fifthForm.text" required>-->
+                     <!--<input type="date" ng-model="$ctrl.fifthForm.text" hidden required>-->
+                     <md-input-container required>
+                        <md-datepicker ng-model="$ctrl.fifthForm.text" placeholder="Enter date" required></md-datepicker>
+                        <md-button type="submit">Send</md-button>
+                     </md-input-container>
+                  </div>
+               </form>
+            </div>
          </div>
       </div>
    </div>

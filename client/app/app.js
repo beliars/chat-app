@@ -2,6 +2,8 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import restangular from 'restangular';
+import ngMaterial from 'angular-material';
+import ngMessages from 'angular-messages';
 import luegg from 'angularjs-scroll-glue';
 
 import Common from './common/common';
@@ -13,6 +15,8 @@ import 'normalize.css';
 angular.module('app', [
     uiRouter,
     ngAnimate,
+    ngMaterial,
+    ngMessages,
     restangular,
     luegg,
     Common,

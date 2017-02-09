@@ -1,8 +1,9 @@
 class ChatController {
-  constructor(Restangular, ChatService, $timeout, $interval, $scope) {
+  constructor(Restangular, ChatService, $timeout, $filter, $scope) {
     this.chatService = ChatService;
     this.restangular = Restangular;
     this.$timeout = $timeout;
+    this.$filter = $filter;
     this.messages = [];
     this.$scope = $scope;
     this.isTyping = false;
@@ -25,12 +26,16 @@ class ChatController {
       text: '',
       user: true
     };
+    this.fifthForm = {
+      text: '',
+      user: true
+    };
   }
 
   $onInit() {
     this.timeoutMessage(500)
-      .then(() => this.timeoutMessage(2000))
       .then(() => this.timeoutMessage(1000))
+      .then(() => this.timeoutMessage(800))
       .then(() => this.onShowForms());
   }
 
@@ -40,7 +45,7 @@ class ChatController {
       switch (form.$name) {
         case 'firstForm':
           this.messages.push(this.firstForm);
-          this.timeoutMessage(2000, 'gender')
+          this.timeoutMessage(1000, 'gender')
             .then(() => this.timeoutMessage(2000))
             .then(() => this.onShowForms());
           break;
@@ -59,9 +64,16 @@ class ChatController {
           this.messages.push(this.fourthForm);
           this.timeoutMessage(2500)
             .then(() => {
-            this.onShowForms();
-            this.onShowCards(3000);
+            this.onShowCards(4000);
           });
+          break;
+        case 'fifthForm':
+          let date = this.$filter('date')(this.fifthForm.text, 'dd/MM/yyyy');
+          this.messages.push({text: date, user: true});
+          // this.timeoutMessage(2500)
+          //   .then(() => {
+          //   this.onShowForms();
+          // });
           break;
         default:
           console.log('Unknown error');
@@ -78,7 +90,7 @@ class ChatController {
           this.messages.push(this.chatService.questions[this.index]);
         }
         resolve();
-      }, 2000);
+      }, 1500);
     });
   }
 
@@ -109,14 +121,14 @@ class ChatController {
       this.$timeout(() => {
         let gender = this.firstForm.text;
         if(gender == 'Yes') {
-          this.messages.push({text: `Great, I was right.`});
+          this.messages.push({text: `Great.`});
         }
         else {
           this.messages.push({text: `Oh, I'm sorry.`});
         }
         this.isTyping = false;
         resolve();
-      }, 2500);
+      }, 1500);
     });
   }
 
@@ -132,25 +144,46 @@ class ChatController {
     });
   }
 
-  onShowCards(ms) {
-    this.$timeout(() => {
-      this.showCards = true;
-    }, ms);
-  }
+  // problemMessage() {
+  //   this.isTyping = true;
+  //   return new Promise((resolve) => {
+  //     this.$timeout(() => {
+  //       let problem = this.fourthForm.text;
+  //       if(problem == 'No') {
+  //         this.messages.push({text: `If love is not a worry, what is your problem my dear?`});
+  //       }
+  //       this.isTyping = false;
+  //       resolve();
+  //     }, 2500);
+  //   });
+  // }
 
   onChooseCard(card) {
     this.showCards = false;
-    this.$timeout(() => {
-      this.messages.push({
-        text: `I have chosen the card "${card}"`,
-        user: true
-      });
-    }, 500);
+    let promise = new Promise((resolve) => {
+      this.$timeout(() => {
+        this.messages.push({
+          text: `The card I choose is "${card}"`,
+          user: true
+        });
+        resolve();
+      }, 500);
+    });
+    promise.then(() => {
+      this.timeoutMessage(3000)
+        .then(() => this.onShowForms());
+    });
   }
 
   onShowForms() {
     this.showForms = true;
     this.$scope.$apply();
+  }
+
+  onShowCards(ms) {
+    this.$timeout(() => {
+      this.showCards = true;
+    }, ms);
   }
 }
 

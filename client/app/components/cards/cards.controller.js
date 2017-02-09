@@ -1,9 +1,6 @@
 class cardsController {
-    constructor(Restangular, BotService, $timeout, $interval) {
-        this.botService = BotService;
+    constructor(Restangular) {
         this.restangular = Restangular;
-        this.$timeout = $timeout;
-        this.$interval = $interval;
 
         this.cards = ['Card1', 'Card2', 'Card3', 'Card4', 'Card5', 'Card6'];
     }
