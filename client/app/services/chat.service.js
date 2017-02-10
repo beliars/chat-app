@@ -46,7 +46,7 @@ export default class ChatService {
       },
       {
         id: 12,
-        text: "It's been a pleasure talking to you, qwe. I hope to see you again, but for now I send you positive vibrations and plenty of light into your path."
+        text: "It's been a pleasure talking to you. I hope to see you again, but for now I send you positive vibrations and plenty of light into your path."
       },
       {
         id: 13,
