@@ -10,6 +10,18 @@ class ChatController {
     this.showForms = false;
     this.showCards = false;
     this.index = -1;
+    this.username = 'Guest';
+
+    this.myDate = new Date();
+    this.minDate = new Date(
+      this.myDate.getFullYear() - 150,
+      this.myDate.getMonth(),
+      this.myDate.getDate());
+    this.maxDate = new Date(
+      this.myDate.getFullYear(),
+      this.myDate.getMonth(),
+      this.myDate.getDate());
+
     this.firstForm = {
       text: '',
       user: true
@@ -30,6 +42,10 @@ class ChatController {
       text: '',
       user: true
     };
+    this.sixForm = {
+      text: '',
+      user: true
+    };
   }
 
   $onInit() {
@@ -45,9 +61,16 @@ class ChatController {
       switch (form.$name) {
         case 'firstForm':
           this.messages.push(this.firstForm);
-          this.timeoutMessage(1000, 'gender')
-            .then(() => this.timeoutMessage(2000))
-            .then(() => this.onShowForms());
+          if(this.firstForm.text == "No") {
+            this.timeoutMessage(1500, 'gender')
+              .then(() => this.timeoutMessage(2000))
+              .then(() => this.onShowForms());
+            break;
+          }
+          else {
+            this.timeoutMessage(2000)
+              .then(() => this.onShowForms());
+          }
           break;
         case 'secondForm':
           this.messages.push(this.secondForm);
@@ -57,11 +80,21 @@ class ChatController {
           break;
         case 'thirdForm':
           this.messages.push(this.thirdForm);
-          this.timeoutMessage(2000)
-            .then(() => this.onShowForms());
+          if(this.thirdForm.text == 'No') {
+            this.index += 1;
+            this.timeoutMessage(3000, 'problem')
+              .then(() => this.onShowForms());
+            break;
+          }
+          else {
+            this.timeoutMessage(2000)
+              .then(() => this.onShowForms());
+            break;
+          }
           break;
         case 'fourthForm':
           this.messages.push(this.fourthForm);
+          debugger;
           this.timeoutMessage(2500)
             .then(() => {
             this.onShowCards(4000);
@@ -70,10 +103,15 @@ class ChatController {
         case 'fifthForm':
           let date = this.$filter('date')(this.fifthForm.text, 'dd/MM/yyyy');
           this.messages.push({text: date, user: true});
-          // this.timeoutMessage(2500)
-          //   .then(() => {
-          //   this.onShowForms();
-          // });
+          this.timeoutMessage(2000)
+            .then(() => this.timeoutMessage(1500))
+            .then(() => this.onShowForms());
+          break;
+        case 'sixForm':
+          this.messages.push(this.sixForm);
+          this.timeoutMessage(2000, 'bye')
+            .then(() => this.timeoutMessage(1200))
+            .then(() => this.timeoutMessage(1500));
           break;
         default:
           console.log('Unknown error');
@@ -84,13 +122,15 @@ class ChatController {
   addNewQuestion() {
     this.isTyping = true;
     return new Promise((resolve) => {
+      this.index += 1;
+      let delay = this.chatService.questions[this.index].text.length * 25;   //<---  printing time delay
+      console.log(delay);
       this.$timeout(() => {
-        this.index += 1;
         if (this.index < this.chatService.questions.length) {
           this.messages.push(this.chatService.questions[this.index]);
         }
         resolve();
-      }, 1500);
+      }, delay);
     });
   }
 
@@ -102,6 +142,12 @@ class ChatController {
         }
         else if(msgType && msgType == 'hello') {
           var promise = this.helloMessage();
+        }
+        else if(msgType && msgType == 'problem') {
+          var promise = this.problemMessage();
+        }
+        else if(msgType && msgType == 'bye') {
+          var promise = this.byeMessage();
         }
         else {
           var promise = this.addNewQuestion();
@@ -119,16 +165,10 @@ class ChatController {
     this.isTyping = true;
     return new Promise((resolve) => {
       this.$timeout(() => {
-        let gender = this.firstForm.text;
-        if(gender == 'Yes') {
-          this.messages.push({text: `Great.`});
-        }
-        else {
-          this.messages.push({text: `Oh, I'm sorry.`});
-        }
+        this.messages.push({text: `Oh, I'm sorry.`});
         this.isTyping = false;
         resolve();
-      }, 1500);
+      }, 600);
     });
   }
 
@@ -136,27 +176,37 @@ class ChatController {
     this.isTyping = true;
     return new Promise((resolve) => {
       this.$timeout(() => {
-        let username = this.secondForm.text;
-        this.messages.push({text: `Nice to meet You, ${username}!`});
+        // let username = this.secondForm.text;
+        this.username = this.secondForm.text;
+        this.messages.push({text: `Nice to meet You ${this.username}!`});
+        // this.messages.push({text: `Nice to meet You ${username}!`});
         this.isTyping = false;
         resolve();
-      }, 2000);
+      }, 900);
     });
   }
 
-  // problemMessage() {
-  //   this.isTyping = true;
-  //   return new Promise((resolve) => {
-  //     this.$timeout(() => {
-  //       let problem = this.fourthForm.text;
-  //       if(problem == 'No') {
-  //         this.messages.push({text: `If love is not a worry, what is your problem my dear?`});
-  //       }
-  //       this.isTyping = false;
-  //       resolve();
-  //     }, 2500);
-  //   });
-  // }
+  problemMessage() {
+    this.isTyping = true;
+    return new Promise((resolve) => {
+      this.$timeout(() => {
+        this.messages.push({text: `If love is not a worry, what is your problem my dear?`});
+        this.isTyping = false;
+        resolve();
+      }, 1500);
+    });
+  }
+
+  byeMessage() {
+    this.isTyping = true;
+    return new Promise((resolve) => {
+      this.$timeout(() => {
+        this.messages.push({text: `It's been a pleasure talking to you ${this.username}.`});
+        this.isTyping = false;
+        resolve();
+      }, 1000);
+    });
+  }
 
   onChooseCard(card) {
     this.showCards = false;

@@ -37,7 +37,7 @@
                         <!--<md-radio-button value="Yes" ng-model="$ctrl.firstForm.text">Yes</md-radio-button>-->
                         <!--<md-radio-button value="No" ng-model="$ctrl.firstForm.text">No</md-radio-button>-->
                      <!--</md-radio-group>-->
-                     <md-button type="submit">Send</md-button>
+                     <md-button type="submit" ng-disabled="firstForm.$invalid">Send</md-button>
                   </div>
                </form>
                <form name="secondForm" ng-show="!secondForm.$submitted && firstForm.$submitted"
@@ -45,7 +45,7 @@
                   <div class="second-form-input">
                      <md-input-container>
                         <input type="text" ng-model="$ctrl.secondForm.text" placeholder="First name" required>
-                        <md-button type="submit">Send</md-button>
+                        <md-button type="submit" ng-disabled="secondForm.$invalid">Send</md-button>
                      </md-input-container>
                   </div>
                </form>
@@ -60,7 +60,7 @@
                         <input id="no" type="radio" name="radiogroup2" ng-model="$ctrl.thirdForm.text" value="No">
                         <span>No</span>
                      </label>
-                     <md-button type="submit">Send</md-button>
+                     <md-button type="submit" ng-disabled="thirdForm.$invalid">Send</md-button>
                   </div>
                </form>
                <form name="fourthForm" ng-show="!fourthForm.$submitted && thirdForm.$submitted"
@@ -68,18 +68,33 @@
                   <div class="fourth-form-input">
                      <md-input-container>
                         <input type="text" ng-model="$ctrl.fourthForm.text" placeholder="Enter text" required>
-                        <md-button type="submit">Send</md-button>
+                        <md-button type="submit" ng-disabled="fourthForm.$invalid">Send</md-button>
                      </md-input-container>
                   </div>
                </form>
                <form name="fifthForm" ng-show="!fifthForm.$submitted && fourthForm.$submitted"
                  ng-submit="$ctrl.onSubmit(fifthForm)">
                   <div class="fifth-form-input">
-                     <!--<input type="date" min="1900-12-31" value="1980-01-01" ng-model="$ctrl.fifthForm.text" required>-->
                      <!--<input type="date" ng-model="$ctrl.fifthForm.text" hidden required>-->
-                     <md-input-container required>
-                        <md-datepicker ng-model="$ctrl.fifthForm.text" placeholder="Enter date" required></md-datepicker>
-                        <md-button type="submit">Send</md-button>
+                     <md-input-container>
+                        <md-datepicker ng-model="$ctrl.fifthForm.text" name="dateField" md-placeholder="Enter date"
+                          md-min-date="$ctrl.minDate" md-max-date="$ctrl.maxDate" required="true"></md-datepicker>
+                        <div class="validation-messages" ng-messages="fifthForm.dateField.$error">
+                           <div ng-message="valid">The entered value is not a date!</div>
+                           <div ng-message="required">This date is required!</div>
+                           <div ng-message="mindate">Date is too early!</div>
+                           <div ng-message="maxdate">Date is too late!</div>
+                        </div>
+                        <md-button type="submit" ng-disabled="fifthForm.$invalid">Send</md-button>
+                     </md-input-container>
+                  </div>
+               </form>
+               <form name="sixForm" ng-show="!sixForm.$submitted && fifthForm.$submitted"
+                 ng-submit="$ctrl.onSubmit(sixForm)">
+                  <div class="six-form-input">
+                     <md-input-container>
+                        <input type="email" ng-model="$ctrl.sixForm.text" placeholder="Email" required>
+                        <md-button type="submit" ng-disabled="sixForm.$invalid">Send</md-button>
                      </md-input-container>
                   </div>
                </form>

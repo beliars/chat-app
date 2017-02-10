@@ -67,6 +67,10 @@
       .chat-forms {
         margin: 20px;
 
+        .hidden {
+          display: none;
+        }
+
         form {
           text-align: center;
 
@@ -77,14 +81,6 @@
               margin-right: 5px;
             }
           }
-
-          //input[type="text"], input[type="date"] {
-          //  border-radius: 4px;
-          //  height: 30px;
-          //  border: 1px solid #ccc;
-          //  padding-left: 10px;
-          //  padding-right: 10px;
-          //}
 
           button {
             //border-radius: 5px;
