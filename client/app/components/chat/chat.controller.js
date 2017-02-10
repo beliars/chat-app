@@ -94,7 +94,6 @@ class ChatController {
           break;
         case 'fourthForm':
           this.messages.push(this.fourthForm);
-          debugger;
           this.timeoutMessage(2500)
             .then(() => {
             this.onShowCards(4000);
@@ -123,7 +122,7 @@ class ChatController {
     this.isTyping = true;
     return new Promise((resolve) => {
       this.index += 1;
-      let delay = this.chatService.questions[this.index].text.length * 25;   //<---  printing time delay
+      let delay = this.chatService.questions[this.index].text.length * 30;   //<---  printing time delay
       console.log(delay);
       this.$timeout(() => {
         if (this.index < this.chatService.questions.length) {
@@ -136,21 +135,22 @@ class ChatController {
 
   timeoutMessage(ms, msgType) {
     return new Promise((resolve) => {
+      let promise;
       this.$timeout(() => {
         if(msgType && msgType == 'gender') {
-          var promise = this.genderMessage();
+          promise = this.genderMessage();
         }
         else if(msgType && msgType == 'hello') {
-          var promise = this.helloMessage();
+          promise = this.helloMessage();
         }
         else if(msgType && msgType == 'problem') {
-          var promise = this.problemMessage();
+          promise = this.problemMessage();
         }
         else if(msgType && msgType == 'bye') {
-          var promise = this.byeMessage();
+          promise = this.byeMessage();
         }
         else {
-          var promise = this.addNewQuestion();
+          promise = this.addNewQuestion();
         }
         promise.then(() => {
           this.isTyping = false;
@@ -168,7 +168,7 @@ class ChatController {
         this.messages.push({text: `Oh, I'm sorry.`});
         this.isTyping = false;
         resolve();
-      }, 600);
+      }, 1000);
     });
   }
 
@@ -182,7 +182,7 @@ class ChatController {
         // this.messages.push({text: `Nice to meet You ${username}!`});
         this.isTyping = false;
         resolve();
-      }, 900);
+      }, 1200);
     });
   }
 
@@ -204,7 +204,7 @@ class ChatController {
         this.messages.push({text: `It's been a pleasure talking to you ${this.username}.`});
         this.isTyping = false;
         resolve();
-      }, 1000);
+      }, 1300);
     });
   }
 

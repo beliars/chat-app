@@ -46,11 +46,11 @@ export default class ChatService {
       },
       {
         id: 12,
-        text: "I hope to see you again, but for now I send you positive vibrations and plenty of light into your path."
+        text: "It's been a pleasure talking to you, qwe. I hope to see you again, but for now I send you positive vibrations and plenty of light into your path."
       },
       {
         id: 13,
-        text: "When I’m finished I’ll send you my findings and advice, but for that I need you to tell me your email address."
+        text: "Keep an eye on your email, I’ll send your results very soon!"
       }
     ];
   }
